@@ -1,3 +1,5 @@
 # Bookmark-d
 
-pj
+## Contributors
+
+PJ and Guadalupe
