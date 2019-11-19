@@ -3,7 +3,7 @@ const bookmarkd = express.Router();
 const bookmarksSchema = require("../models/bookmarks");
 
 //Post Route
-bookmarkd.post("/", (req, res) => {
+bookmarkd.post("/", async (req, res) => {
   Bookmarkd.create(req.body, (error, createdBookmark) => {
     if (error) {
       res.status(400).json({ error: error.message });
@@ -22,7 +22,6 @@ bookmarkd.get("/", (req, res) => {
       res.status(200).json();
     }
   });
-  res.send("index");
 });
 
 //DELETE ROUTE
