@@ -1,10 +1,10 @@
 const express = require("express");
 const bookmarkd = express.Router();
-// const Bookmarkd = Schema("../");
+const bookmarksSchema = require("../models/bookmarks");
 
 //Index GET route
 bookmarkd.get("/", (req, res) => {
-  Schema.find({}, (error, foundBookmark) => {
+  bookmarksSchema.find({}, (error, foundBookmark) => {
     if (error) {
       res.send(400).json({ error: error.message });
     } else {
@@ -14,7 +14,16 @@ bookmarkd.get("/", (req, res) => {
   res.send("index");
 });
 
-//
+//DELETE ROUTE
+bookmarkd.delete("/:id", (req, res) => {
+  console.log("");
+});
+
+//UPDATE ROUTE
+bookmarkd.put("/:id", (req, res) => {
+  console.log("Update Route");
+});
+
 //Post Route
 bookmarkd.post("/", (req, res) => {
   Bookmarkd.create(req.body, (error, createdBookmark) => {
