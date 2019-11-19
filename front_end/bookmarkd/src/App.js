@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+let baseURL = process.env.REACT_APP_BASEURL;
+
+if (process.env.NODE_ENV === "development") {
+  baseURL = "http://localhost:3003";
+} else {
+  baseURL = "https://fathomless-sierra-68956.herokuapp.com";
+}
+
+console.log("current base URL:", baseURL);
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    //States
+    this.state = {};
+    //Binding
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <h1>Bookmarks</h1>
+        <table>
+          <tbody>
+            <tr>
+              <td>...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -1,7 +1,7 @@
 //Dependencies
 const express = require("express");
 const app = express();
-const PORT = 3003;
+const port = 3003;
 const mongoose = require("mongoose");
 //ADD BELOW
 const bookmarksSchema = require("./models/bookmarks.js");
@@ -12,12 +12,6 @@ app.use(express.json);
 
 //Database Connection
 mongoose.connect("mongodb://localhost:27017/holidays");
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const cors = require("cors");
-const port = 3003;
-
 //Mongoose
 mongoose.connection.on("error", error =>
   console.log(error.message + "is Mongod not running?")
