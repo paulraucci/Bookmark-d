@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "react";
+import NewForm from "./components/NewForm";
+
 
 let baseURL = process.env.REACT_APP_BASEURL;
 
@@ -30,8 +32,7 @@ class App extends React.Component {
             </tr>
           </tbody>
         </table>
-      </div>
-    );
+    )
   }
 }
 
