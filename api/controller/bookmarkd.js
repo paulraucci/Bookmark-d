@@ -8,7 +8,7 @@ bookmarkd.post("/", async (req, res) => {
     if (error) {
       res.status(400).json({ error: error.message });
     } else {
-      res.status(200).json(createdBookmark);
+      res.status(200).send(createdBookmark);
     }
   });
 });

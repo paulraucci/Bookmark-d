@@ -25,9 +25,10 @@ class NewForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const response = await axios.post(`${baseURL}/bookmarksSchema`, {
-      title: this.state.title
+      title: this.state.title,
+      url: this.state.url
     });
-    this.setState({ title: "" });
+    this.setState({ title: "", url: "" });
     this.props.handleAddBookmark(response.data);
   }
   render() {

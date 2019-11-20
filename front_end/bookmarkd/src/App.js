@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import NewForm from "./components/NewForm";
-// import "./components/app.css";
+import "./App.css";
 
 let baseURL = process.env.REACT_APP_BASEURL;
 
@@ -84,7 +84,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Bookmarkd App</h1>
+        <h1>Bookmark'd 📖</h1>
         <NewForm handleAddBookmark={this.handleAddBookmark} />
         <table>
           <tbody>
@@ -94,16 +94,25 @@ class App extends React.Component {
                   onMouseOver={() => this.getBookmark(bookmark)}
                   key={bookmark._id}
                 >
+                  &nbsp;
+                  <br />
                   <td
-                  // className={bookmark.viewed ? "Item viewed" : null}
-                  // onDoubleClick={() =>
-                  //   this.toggleBookmark(bookmark, bookmark._id)
-                  // }
+                    className={bookmark.viewed ? "Item viewed" : null}
+                    onDoubleClick={() =>
+                      this.toggleBookmark(bookmark, bookmark._id)
+                    }
                   >
                     {bookmark.title}
                   </td>
+                  &nbsp;
+                  <br />
                   <td onClick={() => this.deleteBookmark(bookmark._id)}>
                     Delete
+                  </td>
+                  &nbsp;
+                  <br />
+                  <td onClick={() => this.editBookmark(bookmark._id)}>
+                    Update
                   </td>
                 </tr>
               );
