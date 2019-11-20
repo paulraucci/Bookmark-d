@@ -7,7 +7,6 @@ const port = 3003;
 
 //controller
 const bookmarkdController = require("./controller/bookmarkd");
-
 //Mongoose
 mongoose.connection.on("error", error =>
   console.log(error.message + "is Mongod not running?")

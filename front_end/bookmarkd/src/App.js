@@ -1,6 +1,17 @@
 import React from "react";
+import axios from "react";
 import NewForm from "./components/NewForm";
-import axios from "axios";
+
+
+let baseURL = process.env.REACT_APP_BASEURL;
+
+if (process.env.NODE_ENV === "development") {
+  baseURL = "http://localhost:3003";
+} else {
+  baseURL = "https://fathomless-sierra-68956.herokuapp.com";
+}
+
+console.log("current base URL:", baseURL);
 
 //
 let baseURL = process.env.REACT_APP_BASEURL;
@@ -15,6 +26,7 @@ console.log("current base URL:", baseURL);
 class App extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       bookmark: []
     };
