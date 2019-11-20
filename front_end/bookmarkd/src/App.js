@@ -51,34 +51,36 @@ class App extends React.Component {
   }
 
   getBookmark(bookmark) {
-    console.log("Hovering Over...");
     this.setState({ bookmark: bookmark });
   }
 
-  //Update Route
-  async toggleBookmark(selectedBookmark, selectedBookmarkId) {
-    const updatedBookmark = {
-      ...selectedBookmark,
-      viewed: !selectedBookmark.viewed
-    };
-    await axios.put(
-      `${baseURL}/bookmarksSchema/${selectedBookmarkId}`,
-      updatedBookmark
-    );
-    const updatedBookmarks = this.state.bookmarks.map(bookmark => {
-      if (bookmark._id === selectedBookmarkId) {
-        const updatedBookmark = {
-          ...selectedBookmark,
-          viewed: !selectedBookmark.viewed
-        };
-        return updatedBookmark;
-      } else {
-        return bookmark;
-      }
-    });
+  //Edit Route
+  async toggleBookmark(selectedBookmark, selectedBookmarkId, event) {
+    console.log("clicked update btn");
+    const { name, value } = event.target;
     this.setState({
-      bookmarks: updatedBookmarks
+      [name]: value
     });
+
+    try {
+      event.preventDefault();
+      console.log("preventDefault");
+      const selectedBookmarkId = this.state.bookmark._id;
+      const url = `${baseURL}/bookmarksSchema/${selectedBookmarkId}`;
+      const playload = {
+        title: this.state.title,
+        url: this.state.url
+      };
+      const updatedBookmark = await axios.put(url, playload);
+      console.log("PUT:", updatedBookmark);
+      this.getBookmarks();
+      this.setState({
+        title: "",
+        url: ""
+      });
+    } catch (err) {
+      console.log("update submit error:", err);
+    }
   }
 
   render() {
@@ -96,14 +98,7 @@ class App extends React.Component {
                 >
                   &nbsp;
                   <br />
-                  <td
-                    className={bookmark.viewed ? "Item viewed" : null}
-                    onDoubleClick={() =>
-                      this.toggleBookmark(bookmark, bookmark._id)
-                    }
-                  >
-                    {bookmark.title}
-                  </td>
+                  <td>{bookmark.title}</td>
                   &nbsp;
                   <br />
                   <td onClick={() => this.deleteBookmark(bookmark._id)}>
@@ -111,7 +106,11 @@ class App extends React.Component {
                   </td>
                   &nbsp;
                   <br />
-                  <td onClick={() => this.editBookmark(bookmark._id)}>
+                  <td
+                    onClick={event =>
+                      this.toggleBookmark(bookmark, bookmark._id, event)
+                    }
+                  >
                     Update
                   </td>
                 </tr>
