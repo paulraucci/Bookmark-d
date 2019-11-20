@@ -4,11 +4,11 @@ const bookmarksSchema = require("../models/bookmarks");
 
 //Post Route
 bookmarkd.post("/", async (req, res) => {
-  Bookmarkd.create(req.body, (error, createdBookmark) => {
+  bookmarksSchema.create(req.body, (error, createdBookmark) => {
     if (error) {
       res.status(400).json({ error: error.message });
     } else {
-      res.status(200).send(createdBookmark);
+      res.status(200).json(createdBookmark);
     }
   });
 });
@@ -19,7 +19,7 @@ bookmarkd.get("/", (req, res) => {
     if (error) {
       res.send(400).json({ error: error.message });
     } else {
-      res.status(200).json();
+      res.status(200).json(foundBookmark);
     }
   });
 });

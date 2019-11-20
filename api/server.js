@@ -13,7 +13,6 @@ mongoose.connection.on("error", error =>
 );
 mongoose.connection.on("disconnected", () => console.log("mongo disconnected"));
 
-//middleware
 const whitelist = ["http://localhost:3000"];
 const corsOptions = {
   origin: (origin, callback) => {
