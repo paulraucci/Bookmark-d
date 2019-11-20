@@ -4,7 +4,7 @@ const bookmarksSchema = require("../models/bookmarks");
 
 //Post Route
 bookmarkd.post("/", async (req, res) => {
-  Bookmarkd.create(req.body, (error, createdBookmark) => {
+  bookmarksSchema.create(req.body, (error, createdBookmark) => {
     if (error) {
       res.status(400).json({ error: error.message });
     } else {
