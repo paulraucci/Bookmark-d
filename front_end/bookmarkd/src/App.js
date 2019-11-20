@@ -17,8 +17,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      bookmark: [],
-      bookmarks: {}
+      bookmarks: [],
+      bookmark: {}
     };
     this.getBookmarks = this.getBookmarks.bind(this);
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
@@ -30,8 +30,8 @@ class App extends React.Component {
     this.getBookmarks();
   }
   async getBookmarks() {
-    const response = await axios.get(`${baseURL}/bookmarks`);
-    //bookmarksSchema does not work for me - can acess the URL same bellow
+    const response = await axios.get(`${baseURL}/bookmarksSchema`);
+
     const bookmarks = response.data;
 
     this.setState({ bookmarks: bookmarks });
@@ -46,7 +46,7 @@ class App extends React.Component {
   //Delete Route
   async deleteBookmark(id) {
     console.log("click delete route");
-    await axios.delete(`${baseURL}/bookmarks/${id}`);
+    await axios.delete(`${baseURL}/bookmarksSchema/${id}`);
     const filterBookmarks = this.state.bookmarks.filter(bookmark => {
       return bookmark._id !== id;
     });
@@ -59,14 +59,13 @@ class App extends React.Component {
   }
 
   //Update Route
-  //Do we need toggle?
   async toggleBookmark(selectedBookmark, selectedBookmarkId) {
     const updatedBookmark = {
       ...selectedBookmark,
       viewed: !selectedBookmark.viewed
     };
     await axios.put(
-      `${baseURL}/bookmarks/${selectedBookmarkId}`,
+      `${baseURL}/bookmarksSchema/${selectedBookmarkId}`,
       updatedBookmark
     );
     const updatedBookmarks = this.state.bookmarks.map(bookmark => {
