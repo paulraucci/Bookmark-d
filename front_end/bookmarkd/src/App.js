@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "react";
+import axios from "axios";
 import NewForm from "./components/NewForm";
-// import "./components/app.css";
+import "./App.css";
 
 let baseURL = process.env.REACT_APP_BASEURL;
 
@@ -15,7 +15,6 @@ console.log("current base URL:", baseURL);
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       bookmarks: [],
       bookmark: {}
@@ -23,7 +22,7 @@ class App extends React.Component {
     this.getBookmarks = this.getBookmarks.bind(this);
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.deleteBookmark = this.deleteBookmark.bind(this);
-    this.getBookmarks = this.getBookmarks.bind(this);
+    this.getBookmark = this.getBookmark.bind(this);
     this.toggleBookmark = this.toggleBookmark.bind(this);
   }
   componentDidMount() {
@@ -31,15 +30,13 @@ class App extends React.Component {
   }
   async getBookmarks() {
     const response = await axios.get(`${baseURL}/bookmarksSchema`);
-
     const bookmarks = response.data;
-
     this.setState({ bookmarks: bookmarks });
   }
 
   handleAddBookmark(bookmark) {
     this.setState({
-      bookmark: [...this.state.bookmarks, bookmark]
+      bookmarks: [...this.state.bookmarks, bookmark]
     });
   }
 
@@ -79,13 +76,15 @@ class App extends React.Component {
         return bookmark;
       }
     });
-    this.setState({ bookmarks: updatedBookmarks });
+    this.setState({
+      bookmarks: updatedBookmarks
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Bookmarkd</h1>
+        <h1>Bookmark'd 📖</h1>
         <NewForm handleAddBookmark={this.handleAddBookmark} />
         <table>
           <tbody>
@@ -95,6 +94,8 @@ class App extends React.Component {
                   onMouseOver={() => this.getBookmark(bookmark)}
                   key={bookmark._id}
                 >
+                  &nbsp;
+                  <br />
                   <td
                     className={bookmark.viewed ? "Item viewed" : null}
                     onDoubleClick={() =>
@@ -102,10 +103,17 @@ class App extends React.Component {
                     }
                   >
                     {bookmark.title}
-                    <br />
-                    {bookmark.url}
                   </td>
-                  <td onClick={() => this.deleteBookmark(bookmark._id)}>X</td>
+                  &nbsp;
+                  <br />
+                  <td onClick={() => this.deleteBookmark(bookmark._id)}>
+                    Delete
+                  </td>
+                  &nbsp;
+                  <br />
+                  <td onClick={() => this.editBookmark(bookmark._id)}>
+                    Update
+                  </td>
                 </tr>
               );
             })}
